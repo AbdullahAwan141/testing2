@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --heart-size: min(90vmin, 800px);
+    --font-size-large: clamp(40px, 10vw, 120px);
+    --font-size-medium: clamp(30px, 8vw, 100px);
+    --gold-gradient: linear-gradient(45deg, #DAA520, #FFD700);
+}
+
+body {
+    background: #FFF5EA;
+    min-height: 100vh;
+    min-height: 100dvh; /* For mobile browsers */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    overflow: hidden;
+    touch-action: none; /* Prevents unwanted scrolling on mobile */
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+
+.heart-container {
+    position: relative;
+    width: var(--heart-size);
+    height: var(--heart-size);
+    aspect-ratio: 1;
+}
+
+.heart-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: rgba(128, 0, 0, 0.2);
+    stroke-width: 1;
+    pointer-events: none;
+}
+
+.heart-path {
+    animation: drawHeart 3s ease forwards;
+    stroke-dasharray: 2400;
+    stroke-dashoffset: 2400;
+}
+
+.heart-roses {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.heart-rose {
+    position: absolute;
+    width: clamp(15px, 2.5vw, 20px);
+    height: clamp(15px, 2.5vw, 20px);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeInRose 0.5s ease forwards;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 2vw, 20px);
+}
+
+.initials, .initials-m {
+    font-family: 'Times New Roman', serif;
+    font-size: var(--font-size-large);
+    margin-bottom: auto;
+    margin-top: clamp(180px, 30vh, 240px);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 8px rgba(218, 165, 32, 0.2);
+    opacity: 0;
+    animation: fadeInScale 1s ease forwards 2s;
+}
+
+.ampersand-link {
+    text-decoration: none;
+}
+
+.ampersand {
+    font-family: 'Times New Roman', serif;
+    font-size: var(--font-size-medium);
+    background: transparent;
+    border: none;
+    color: #800000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeInScale 1s ease forwards 2.2s;
+    padding: clamp(10px, 2vw, 20px);
+    position: relative;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+.ampersand:hover {
+    transform: scale(1.1);
+}
+
+.ampersand::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(128, 0, 0, 0.2) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.ampersand.clicked::after {
+    width: clamp(150px, 30vw, 200px);
+    height: clamp(150px, 30vw, 200px);
+    opacity: 0;
+}
+
+.petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    width: clamp(20px, 3vw, 35px);
+    height: clamp(20px, 3vw, 35px);
+    transition: transform var(--duration) linear, opacity var(--duration) linear;
+}
+
+@keyframes drawHeart {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeInRose {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .content {
+        transform: scale(0.8);
+    }
+    
+    .initials, .initials-m {
+        margin-top: clamp(120px, 20vh, 180px);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .ampersand:hover {
+        transform: none;
+    }
+    
+    .ampersand:active {
+        transform: scale(0.95);
+    }
+}
+@media (max-width: 380px) {
+    :root {
+      --letter-size: clamp(1.5rem, 12vmin, 6rem);
+      --ampersand-size: clamp(1.2rem, 10vmin, 5rem);
+      --letter-spacing: clamp(0.3rem, 2vmin, 1rem);
+    }
+  }
+  
+@media (max-height: 480px) and (orientation: landscape) {
+    .content {
+      flex-direction: row;
+      top: 60%;
+    }
+    
+    :root {
+      --letter-size: clamp(1.2rem, 10vmin, 5rem);
+      --ampersand-size: clamp(1rem, 8vmin, 4rem);
+      --letter-spacing: clamp(0.2rem, 1.5vmin, 0.8rem);
+    }
+  }
+  
+ @media (min-width: 1200px) {
+    :root {
+      --letter-size: clamp(3rem, 18vmin, 10rem);
+      --ampersand-size: clamp(2.5rem, 15vmin, 8rem);
+      --letter-spacing: clamp(1rem, 4vmin, 3rem);
+    }
+  }
+  @media (max-width: 480px) {
+    .initials, .initials-m {
+        font-size: clamp(20px, 8vw, 60px); /* Smaller font sizes */
+        margin-top: clamp(120px, 20vh, 180px);
+        letter-spacing: 2px; /* Slightly tighter spacing */
+    }
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 480px) {
+    .initials, .initials-m {
+        font-size: clamp(20px, 8vw, 60px);
+        margin-top: clamp(80px, 15vh, 140px); /* Slightly moved up for small screens */
+        letter-spacing: 2px;
+    }
+}
+
+/* Adjustments for larger screens */
+@media (min-width: 1200px) {
+    .initials, .initials-m {
+        font-size: clamp(60px, 10vw, 150px);
+        margin-top: clamp(150px, 25vh, 250px); /* Slightly moved up for larger screens */
+        letter-spacing: 10px;
+    }
+}

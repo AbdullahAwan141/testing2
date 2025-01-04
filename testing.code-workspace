@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "testing",
+			"path": "."
+		},
+		{
+			"name": "img",
+			"path": "../../../.vscode/New folder/img"
+		}
+	],
+	"settings": {}
+}
