@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function createFloatingPetals() {
     function createPetal() {
         const petal = document.createElement('img');
-        petal.src = 'img/rose02.png';
+        petal.src = 'rose02.png';
         petal.className = 'petal';
         petal.style.width = '35px';
         petal.style.height = '35px';
@@ -60,7 +60,7 @@ function setupAmpersandButton() {
 
 function createCelebrationPetal() {
     const petal = document.createElement('img');
-    petal.src = 'img/rose02.png';
+    petal.src = 'rose02.png';
     petal.className = 'petal';
     petal.style.width = '25px';
     petal.style.height = '25px';
